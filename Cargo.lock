@@ -592,9 +592,9 @@ dependencies = [
 
 [[package]]
 name = "atm0s-sdn"
-version = "0.1.6"
+version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "435f75af2e9442128c0ca072104ac42a4059c2c88f3daad17e6ad5d978e7e9f8"
+checksum = "42b7f21569f8c8f9dd5f5844fedbe6fc66bbbd210c232cde98c215df3cc590dd"
 dependencies = [
  "async-std",
  "async-trait",
@@ -604,6 +604,7 @@ dependencies = [
  "atm0s-sdn-layers-spread-router-sync",
  "atm0s-sdn-manual-discovery",
  "atm0s-sdn-network",
+ "atm0s-sdn-node-alias",
  "atm0s-sdn-pub-sub",
  "atm0s-sdn-router",
  "atm0s-sdn-rpc",
@@ -611,6 +612,7 @@ dependencies = [
  "atm0s-sdn-transport-tcp",
  "atm0s-sdn-transport-udp",
  "atm0s-sdn-utils",
+ "atm0s-sdn-virtual-socket",
  "futures-util",
  "paste",
  "thiserror",
@@ -719,6 +721,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "atm0s-sdn-node-alias"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a913834bf7275d9ed6fe4f05453233dc5068c4b1dc9455195ab617310ceb6de9"
+dependencies = [
+ "async-std",
+ "atm0s-sdn-identity",
+ "atm0s-sdn-network",
+ "atm0s-sdn-pub-sub",
+ "atm0s-sdn-router",
+ "atm0s-sdn-utils",
+ "bincode",
+ "bytes",
+ "log",
+ "parking_lot",
+ "serde",
+]
+
+[[package]]
 name = "atm0s-sdn-pub-sub"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -792,9 +813,9 @@ dependencies = [
 
 [[package]]
 name = "atm0s-sdn-transport-udp"
-version = "0.1.4"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b74b097cbb35f766cca7f1a488cb9635a36e5300d6aa558158610d600d5f7e7"
+checksum = "736ce6cbd9aed3fcf9f7381228693c1a0898c46c7ddc1dda71e573dfe480d1f5"
 dependencies = [
  "async-notify",
  "async-std",
@@ -823,6 +844,25 @@ dependencies = [
  "async-trait",
  "log",
  "rand 0.8.5",
+]
+
+[[package]]
+name = "atm0s-sdn-virtual-socket"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c2bb7aca08fa99a3c89cec606a4e5b2a327d1d5849d7aed964be0f55ea1ba6f"
+dependencies = [
+ "async-std",
+ "async-trait",
+ "atm0s-sdn-identity",
+ "atm0s-sdn-network",
+ "atm0s-sdn-router",
+ "atm0s-sdn-utils",
+ "futures",
+ "log",
+ "parking_lot",
+ "quinn",
+ "quinn-plaintext",
 ]
 
 [[package]]
@@ -3468,6 +3508,67 @@ dependencies = [
 ]
 
 [[package]]
+name = "quinn"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8cc2c5017e4b43d5995dcea317bc46c1e09404c0a9664d2908f7f02dfe943d75"
+dependencies = [
+ "async-io 1.13.0",
+ "async-std",
+ "bytes",
+ "futures-io",
+ "pin-project-lite",
+ "quinn-proto",
+ "quinn-udp",
+ "rustc-hash",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "quinn-plaintext"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eb0e784540a62e207fafa749f17a80ea1c67a59b9d5b30c9083a97bcc42d6eea"
+dependencies = [
+ "bytes",
+ "quinn-proto",
+ "seahash",
+ "tracing",
+]
+
+[[package]]
+name = "quinn-proto"
+version = "0.10.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "141bf7dfde2fbc246bfd3fe12f2455aa24b0fbd9af535d8c86c7bd1381ff2b1a"
+dependencies = [
+ "bytes",
+ "rand 0.8.5",
+ "ring 0.16.20",
+ "rustc-hash",
+ "rustls",
+ "slab",
+ "thiserror",
+ "tinyvec",
+ "tracing",
+]
+
+[[package]]
+name = "quinn-udp"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "055b4e778e8feb9f93c4e439f71dc2156ef13360b432b799e179a8c4cdf0b1d7"
+dependencies = [
+ "bytes",
+ "libc",
+ "socket2 0.5.5",
+ "tracing",
+ "windows-sys 0.48.0",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3954,6 +4055,12 @@ dependencies = [
  "nom",
  "vec1",
 ]
+
+[[package]]
+name = "seahash"
+version = "4.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c107b6f4780854c8b126e228ea8869f4d7b71260f962fefb57b996b8959ba6b"
 
 [[package]]
 name = "sealed"
@@ -4541,6 +4648,7 @@ version = "0.1.40"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3523ab5a71916ccf420eebdf5521fcef02141234bbc0b8a49f2fdc4544364ef"
 dependencies = [
+ "log",
  "pin-project-lite",
  "tracing-attributes",
  "tracing-core",
